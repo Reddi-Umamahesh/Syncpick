@@ -1,0 +1,89 @@
+<% layout("/layouts/boilerplate") -%>
+<div class="row">
+  <div class="col-8 mb-3">
+    <h2>Create new Listing</h2>
+    <form
+      action="../listings/new"
+      method="post"
+      novalidate
+      class="needs-validation"
+    >
+      <div class="mb-3 from">
+        <label for="title" class="form-label">Title</label>
+        <input
+          class="form-control"
+          type="text"
+          name="listing[title]"
+          placeholder="Enter title"
+          required
+        />
+        <div class="invalid-feedback">Please enter a Title</div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          type="text"
+          name="listing[description]"
+          placeholder="Enter about your Service"
+          required
+        ></textarea>
+        <div class="invalid-feedback">Please enter a short description</div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label"
+          >Image <i style="opacity: 0.9" class="fa-solid fa-image"></i
+        ></label>
+        <input
+          type="text"
+          name="listing[image]"
+          placeholder="enter url of image"
+          class="form-control"
+        />
+      </div>
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label"
+            >Price <i class="fa-solid fa-tag"></i
+          ></label>
+          <input
+            class="form-control"
+            type="number"
+            name="listing[price]"
+            placeholder="1200"
+            required
+          />
+          <div class="invalid-feedback">price should be valid</div>
+        </div>
+        <div class="mb-3 col-md-8">
+          <label for="location" class="form-label"
+            >Location <i class="fa-solid fa-location-dot"></i>
+          </label>
+          <input
+            class="form-control"
+            type="text"
+            name="listing[location]"
+            placeholder="Kukatpally, Hyderabad"
+            required
+          />
+          <div class="invalid-feedback">Location should be valid</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="contact" class="form-label"
+          >Contact <i class="fa-solid fa-phone"></i
+        ></label>
+        <input
+          type="text"
+          name="listing[contact]"
+          placeholder="99999888888"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">please enter Contact details</div>
+      </div>
+
+      <button class="form-btn btn btn-dark">add</button>
+    </form>
+  </div>
+</div>

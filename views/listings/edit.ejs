@@ -1,0 +1,91 @@
+<% layout("/layouts/boilerplate") -%>
+<div class="row">
+  <div class="col-8 mb-3">
+    <h2>Edit info</h2>
+    <form
+      method="post"
+      action="/listings/<%= post._id %>?_method=PUT"
+      novalidate
+      class="needs-validation"
+    >
+      <div class="mb-3 from">
+        <label for="title" class="form-label">Title</label>
+        <input
+          class="form-control"
+          type="text"
+          name="listing[title]"
+          value="<%= post.title %>"
+          required
+        />
+        <div class="invalid-feedback">Please enter a Title</div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          type="text"
+          name="listing[description]"
+          required
+        >
+<%= post.description %></textarea
+        >
+        <div class="invalid-feedback">Please enter a short description</div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label"
+          >Image <i style="opacity: 0.9" class="fa-solid fa-image"></i
+        ></label>
+        <input
+          type="text"
+          name="listing[image]"
+          value="<%= post.image %>"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">please enter a vaild link</div>
+      </div>
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label"
+            >Price <i class="fa-solid fa-tag"></i
+          ></label>
+          <input
+            class="form-control"
+            type="number"
+            name="listing[price]"
+            value="<%= post.price %>"
+            required
+          />
+          <div class="invalid-feedback">price should be valid</div>
+        </div>
+        <div class="mb-3 col-md-8">
+          <label for="location" class="form-label"
+            >Location <i class="fa-solid fa-location-dot"></i>
+          </label>
+          <input
+            class="form-control"
+            type="text"
+            name="listing[location]"
+            value="<%= post.location %>"
+            required
+          />
+          <div class="invalid-feedback">Location should be valid</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="contact" class="form-label"
+          >Contact <i class="fa-solid fa-phone"></i
+        ></label>
+        <input
+          type="text"
+          name="listing[contact]"
+          value="<%= post.contact %>"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">please enter Contact details</div>
+      </div>
+      <button class="form-btn btn btn-dark">Update</button>
+    </form>
+  </div>
+</div>
