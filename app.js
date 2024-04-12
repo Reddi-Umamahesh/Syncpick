@@ -10,6 +10,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
+const review = require("./models/review.js");
 
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
@@ -72,7 +73,7 @@ app.get(
     const id = req.params.id;
     const post = await listing.findById(id);
     console.log("edited", post);
-    res.render();
+    res.render("./listings/edit.ejs", { post });
   })
 );
 app.put(
@@ -99,5 +100,6 @@ app.all("*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something went Worng" } = err;
+  console.log(err);
   res.status(statusCode).render("./error.ejs", { err });
 });
