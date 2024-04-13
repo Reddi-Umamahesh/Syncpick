@@ -1,6 +1,6 @@
 <% layout("/layouts/boilerplate") -%>
 <div class="row m-0">
-  <div class="col-8 offset-2">
+  <div class="col-8 offset-2 mt-3">
     <h2><%= post.title %></h2>
   </div>
   <div class="card show-card col-6">
@@ -29,5 +29,50 @@
     <form method="post" action="/listings/<%= post._id%>?_method=DELETE">
       <button class="btn btn-dark offset-5">Delete</button>
     </form>
+  </div>
+  <hr />
+  <div class="col-8 offset-2">
+    <h4>Leave a Review</h4>
+    <form
+      method="post"
+      class="mb-3 needs-validation"
+      action="/listings/<%= post._id %>/reviews"
+      novalidate
+    >
+      <div class="mb-3">
+        <label for="rating" class="form-label">Rating</label>
+        <input
+          type="range"
+          class="form-range form-control"
+          min="0"
+          max="5"
+          id="rating"
+          name="review[rating]"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="comment" class="form-label">comment</label>
+        <textarea
+          class="form-control"
+          name="review[comment]"
+          id="comment"
+          cols="30"
+          rows="5"
+          required
+        ></textarea>
+        <div class="invalid-feedback">please add some comments for review</div>
+      </div>
+      <button class="btn btn-outline-dark">submit</button>
+    </form>
+
+    <hr />
+    <h4>Reviews</h4>
+     <ul></ul>
+    <% for( review of post.reviews) { %>
+   
+      <li><%= review.comment %>, <%=  review.rating %>star</li>
+    
+    <% } %>
+    </ul>
   </div>
 </div>

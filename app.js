@@ -5,11 +5,12 @@ const mongoose = require("mongoose");
 const { type } = require("os");
 const { Mongoose } = require("mongoose");
 const listing = require("./models/listing");
-const { title } = require("process");
+
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
+const { listingSchema, reviewSchema } = require("./schema.js");
 const review = require("./models/review.js");
 
 app.use(methodOverride("_method"));
@@ -31,6 +32,25 @@ port = 8080;
 app.listen(port, (req, res) => {
   console.log("app is listining");
 });
+//validation
+const validateListing = (req, res, next) => {
+  let { error } = listingSchema.validate(req.body);
+  if (error) {
+    let errmsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errmsg);
+  } else {
+    next();
+  }
+};
+const validateReview = (req, res, next) => {
+  let { error } = reviewSchema.validate(req.body);
+  if (error) {
+    let errmsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errmsg);
+  } else {
+    next();
+  }
+};
 //home
 app.get(
   "/listings",
@@ -46,6 +66,7 @@ app.get("/listings/new", (req, res) => {
 //create new
 app.post(
   "/listings/new",
+  validateListing,
   wrapAsync(async (req, res, next) => {
     const newpost = new listing(req.body.listing);
     if (newpost.image == "") {
@@ -62,7 +83,7 @@ app.get(
   "/listings/:id",
   wrapAsync(async (req, res, next) => {
     const id = req.params.id;
-    const post = await listing.findById(id);
+    const post = await listing.findById(id).populate("reviews");
     res.render("./listings/show.ejs", { post });
   })
 );
@@ -72,12 +93,12 @@ app.get(
   wrapAsync(async (req, res, next) => {
     const id = req.params.id;
     const post = await listing.findById(id);
-    console.log("edited", post);
     res.render("./listings/edit.ejs", { post });
   })
 );
 app.put(
   "/listings/:id",
+  validateListing,
   wrapAsync(async (req, res, next) => {
     const id = req.params.id;
     await listing.findByIdAndUpdate(id, { ...req.body.listing });
@@ -94,12 +115,28 @@ app.delete(
     res.redirect("/listings");
   })
 );
-app.all("*", (req, res, next) => {
-  next(new ExpressError(404, "page Not Found"));
-});
 
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something went Worng" } = err;
   console.log(err);
+  console.log("error occured");
   res.status(statusCode).render("./error.ejs", { err });
+});
+
+//Reviews
+app.post(
+  "/listings/:id/reviews",
+  validateReview,
+  wrapAsync(async (req, res, next) => {
+    let list = await listing.findById(req.params.id);
+    let newRev = new review(req.body.review);
+    list.reviews.push(newRev);
+    await newRev.save();
+    await list.save();
+    res.redirect(`/listings/${list.id}`);
+  })
+);
+
+app.all("*", (req, res, next) => {
+  next(new ExpressError(404, "page Not Found"));
 });
