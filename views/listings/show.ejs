@@ -3,13 +3,13 @@
   <div class="col-8 offset-2 mt-3">
     <h2><%= post.title %></h2>
   </div>
-  <div class="card show-card col-6">
+  <div class="listing-card card show-card col-6">
     <img
       src="<%= post.image%>"
       class="card-img-top card-img-show"
       alt="Image"
     />
-    <div class="card-body">
+    <div class="card-body listing-card-body">
       <p class="card-text">
         <%= post.description %> <br />
         <i class="fa-solid fa-tag"></i> &#8377;<%=
@@ -67,12 +67,22 @@
 
     <hr />
     <h4>Reviews</h4>
-     <ul></ul>
-    <% for( review of post.reviews) { %>
-   
-      <li><%= review.comment %>, <%=  review.rating %>star</li>
-    
-    <% } %>
-    </ul>
+    <div class="row">
+      <% for( review of post.reviews) { %>
+      <div class="card ms-3 col-lg-5 mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Rahul</h5>
+          <p class="card-text"><%= review.comment %></p>
+          <p class="card-text"><%= review.rating %> stars</p>
+          <form
+            action="/listings/<%= post._id %>/reviews/<%= review._id %>?_method=DELETE"
+            method="post"
+          >
+            <button class="btn btn-sm btn-dark">Delete</button>
+          </form>
+        </div>
+      </div>
+      <% } %>
+    </div>
   </div>
 </div>

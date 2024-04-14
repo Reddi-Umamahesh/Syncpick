@@ -58,7 +58,7 @@ body{
     justify-content: center;
 }
 
-.card{
+.listing-card{
     border: none !important;
     margin-bottom: 3rem;
     margin-right: 1rem;
@@ -68,7 +68,7 @@ body{
     width: 100% !important;
     object-fit: cover !important;
 }
-.card-body{
+.listing-card-body{
     padding: 0;
 }
 .card-links{
