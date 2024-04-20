@@ -10,6 +10,7 @@
       alt="Image"
     />
     <div class="card-body listing-card-body">
+      <p class="card-text">Owned by ~<%= post.owner.username %></p>
       <p class="card-text">
         <%= post.description %> <br />
         <i class="fa-solid fa-tag"></i> &#8377;<%=
@@ -19,6 +20,7 @@
       </p>
     </div>
   </div>
+  <% if (currUser && currUser._id.equals(post.owner._id)) { %>
   <div class="show-btns">
     <a
       style="margin-right: 2rem"
@@ -30,6 +32,8 @@
       <button class="btn btn-dark offset-5">Delete</button>
     </form>
   </div>
+
+  <% } %>
   <hr />
   <div class="col-8 offset-2">
     <h4>Leave a Review</h4>

@@ -5,6 +5,8 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const { listingSchema } = require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const router = express.Router();
+const passport = require("passport");
+const { isLoggedIn } = require("../middleware.js");
 
 //validation
 const validateListing = (req, res, next) => {
@@ -25,15 +27,17 @@ router.get(
   })
 );
 //create new
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("./listings/new.ejs");
 });
 //create new
 router.post(
   "/new",
+  isLoggedIn,
   validateListing,
   wrapAsync(async (req, res, next) => {
     const newpost = new listing(req.body.listing);
+    newpost.owner = req.user._id;
     if (newpost.image == "") {
       newpost.image =
         "https://images.unsplash.com/photo-1584661156681-540e80a161d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTcxMTY0NjAwOA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080";
@@ -49,7 +53,10 @@ router.get(
   "/:id",
   wrapAsync(async (req, res, next) => {
     const id = req.params.id;
-    const post = await listing.findById(id).populate("reviews");
+    const post = await listing
+      .findById(id)
+      .populate("reviews")
+      .populate("owner");
     if (!post) {
       req.flash("error", "Listing you requested for does not exist!");
       res.redirect("/listings");
@@ -60,6 +67,7 @@ router.get(
 //update
 router.get(
   "/:id/edit",
+  isLoggedIn,
   wrapAsync(async (req, res, next) => {
     const id = req.params.id;
     const post = await listing.findById(id);
@@ -72,6 +80,7 @@ router.get(
 );
 router.put(
   "/:id",
+  isLoggedIn,
   validateListing,
   wrapAsync(async (req, res, next) => {
     const id = req.params.id;
@@ -84,6 +93,7 @@ router.put(
 //delete
 router.delete(
   "/:id",
+  isLoggedIn,
   wrapAsync(async (req, res, next) => {
     const id = req.params.id;
     await listing.findByIdAndDelete(id);
