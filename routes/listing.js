@@ -6,18 +6,10 @@ const { listingSchema } = require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const router = express.Router();
 const passport = require("passport");
-const { isLoggedIn } = require("../middleware.js");
+const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 
 //validation
-const validateListing = (req, res, next) => {
-  let { error } = listingSchema.validate(req.body);
-  if (error) {
-    let errmsg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(400, errmsg);
-  } else {
-    next();
-  }
-};
+
 //home
 router.get(
   "/",
@@ -55,7 +47,12 @@ router.get(
     const id = req.params.id;
     const post = await listing
       .findById(id)
-      .populate("reviews")
+      .populate({
+        path: "reviews",
+        populate: {
+          path: "author",
+        },
+      })
       .populate("owner");
     if (!post) {
       req.flash("error", "Listing you requested for does not exist!");
@@ -68,6 +65,7 @@ router.get(
 router.get(
   "/:id/edit",
   isLoggedIn,
+  isOwner,
   wrapAsync(async (req, res, next) => {
     const id = req.params.id;
     const post = await listing.findById(id);
@@ -81,6 +79,7 @@ router.get(
 router.put(
   "/:id",
   isLoggedIn,
+  isOwner,
   validateListing,
   wrapAsync(async (req, res, next) => {
     const id = req.params.id;
@@ -94,6 +93,7 @@ router.put(
 router.delete(
   "/:id",
   isLoggedIn,
+  isOwner,
   wrapAsync(async (req, res, next) => {
     const id = req.params.id;
     await listing.findByIdAndDelete(id);
