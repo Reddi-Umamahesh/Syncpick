@@ -1,11 +1,240 @@
 <% layout("/layouts/boilerplate") -%>
+<style>
+  .bar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #filters {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .filter {
+    text-align: center;
+    margin-right: 2rem;
+    margin-top: 2rem;
+    opacity: 0.7;
+  }
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  .filter {
+    text-align: center;
+    /* margin-right: 2rem; */
+    margin-top: 2rem;
+    opacity: 0.7;
+  }
+
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  .filter i {
+    opacity: 0.7;
+  }
+
+  .filter:hover i {
+    opacity: 1;
+    cursor: pointer;
+  }
+  .menu-wrapper {
+    position: relative;
+    width: 60%; /* Adjusted to 60% of the viewport width */
+    height: 100px;
+    /* margin: 1em auto; */
+    overflow: hidden;
+  }
+
+  .menu {
+    height: calc(100% + 30px);
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 30px;
+  }
+
+  .item {
+    display: inline-flex; /* Use flexbox */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: center; /* Align content vertically */
+    align-items: center; /* Align content horizontally */
+    width: 150px; /* Increased to 150px */
+    height: 100%;
+    /* padding: 1em; */
+    box-sizing: border-box;
+  }
+
+  .paddles {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    /* padding: 0 10px; Adjusted for padding */
+    box-sizing: border-box;
+  }
+
+  .left-paddle {
+    left: 0; /* Push the button to the left */
+  }
+
+  .right-paddle {
+    right: 0; /* Push the button to the right */
+  }
+
+  .paddle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+    padding: 0.5em;
+  }
+
+  .hidden {
+    display: none;
+  }
+  .filter i {
+    opacity: 0.7;
+  }
+  .filter i:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  .tax-info {
+    display: none;
+  }
+  .tax-toggle {
+    margin-top: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid black;
+    height: 3.5rem;
+    padding: 1rem;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+</style>
+
 <body>
+  <div class="bar">
+    <div id="filters" class="menu-wrapper">
+      <ul class="menu">
+        <li class="item filter">
+          <div>
+            <div><i class="fa-solid fa-helmet-safety"></i></div>
+            <p>General Contractor</p>
+          </div>
+        </li>
+        <li class="item filter">
+          <div>
+            <div><i class="fa-solid fa-faucet"></i></div>
+            <p>Plumber</p>
+          </div>
+        </li>
+        <li class="item filter">
+          <div>
+            <div><i class="fa-solid fa-plug-circle-bolt"></i></div>
+            <p>Electrician</p>
+          </div>
+        </li>
+        <li class="item filter">
+          <div>
+            <div><i class="fa-solid fa-snowflake"></i></div>
+            <p>HVAC</p>
+          </div>
+        </li>
+        <li class="item filter">
+          <div>
+            <div><i class="fa-solid fa-hammer"></i></div>
+            <p>Carpenter</p>
+          </div>
+        </li>
+        <li class="item filter">
+          <div>
+            <div><i class="fa-solid fa-paint-roller"></i></div>
+            <p>Painter</p>
+          </div>
+        </li>
+        <li class="item filter">
+          <div>
+            <div><i class="fa-solid fa-trowel-bricks"></i></div>
+            <p>Masonry</p>
+          </div>
+        </li>
+        <li class="item filter">
+          <div>
+            <div><i class="fa-solid fa-solar-panel"></i></div>
+            <p>Solar</p>
+          </div>
+        </li>
+        <li class="item filter">
+          <div>
+            <div><i class="fa-solid fa-house"></i></div>
+            <p>House Repairs</p>
+          </div>
+        </li>
+        <li class="item filter">
+          <div>
+            <div><i class="fa-solid fa-water-ladder"></i></div>
+            <p>Pool and spa</p>
+          </div>
+        </li>
+        <li class="item filter">
+          <div>
+            <div><i class="fa-solid fa-circle-up"></i></div>
+            <p>Renovation</p>
+          </div>
+        </li>
+        <li class="item filter">
+          <div>
+            <div><i class="fa-solid fa-road-barrier"></i></div>
+            <p>Fence</p>
+          </div>
+        </li>
+        <li class="item filter">
+          <div>
+            <div><i class="fa-solid fa-building"></i></div>
+            <p>Cement</p>
+          </div>
+        </li>
+      </ul>
+      <div class="paddles">
+        <button class="left-paddle paddle">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <button class="right-paddle paddle">
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+    <div class="tax-toggle">
+      <div class="form-check-reverse form-switch">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckDefault"
+        />
+        <label class="form-check-label" for="flexSwitchCheckDefault"
+          >Display total after taxes</label
+        >
+      </div>
+    </div>
+  </div>
   <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1">
     <% for( let ele of listings) { %>
     <div class="card col-auto listing-card" style="width: 20rem">
       <a href="/listings/<%= ele._id %>" class="card-links">
         <img
-          src="<%= ele.image %>"
+          src="<%= ele.image.url %>"
           class="card-img-top"
           style="height: 15rem"
           alt=""
@@ -15,7 +244,9 @@
           <p class="card-text">
             <b><%=ele.title %></b><br />
             <%=ele.description %> <br /><br />&#8377; <%=
-            ele.price.toLocaleString("en-IN") %> /Service
+            ele.price.toLocaleString("en-IN") %>/Service<i class="tax-info">
+              &nbsp;&nbsp;+18% GST
+            </i>
           </p>
         </div>
       </a>
@@ -23,3 +254,52 @@
     <% } %>
   </div>
 </body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const menu = document.querySelector(".menu");
+    const leftPaddle = document.querySelector(".left-paddle");
+    const rightPaddle = document.querySelector(".right-paddle");
+
+    function updatePaddles() {
+      const scrollLeft = menu.scrollLeft;
+      const scrollWidth = menu.scrollWidth;
+      const clientWidth = menu.clientWidth;
+      const isScrolled = scrollLeft > 0;
+      const isEndOfScroll = scrollLeft + clientWidth === scrollWidth;
+
+      leftPaddle.classList.toggle("hidden", !isScrolled);
+      rightPaddle.classList.toggle("hidden", isEndOfScroll);
+    }
+
+    leftPaddle.addEventListener("click", function () {
+      menu.scrollBy({
+        left: -200,
+        behavior: "smooth",
+      });
+    });
+
+    rightPaddle.addEventListener("click", function () {
+      menu.scrollBy({
+        left: 200,
+        behavior: "smooth",
+      });
+    });
+
+    menu.addEventListener("scroll", updatePaddles);
+
+    updatePaddles();
+  });
+  let price = document.getElementsByClassName("listing-price");
+
+  let tax_switch = document.getElementById("flexSwitchCheckDefault");
+  tax_switch.addEventListener("click", () => {
+    let tax_info = document.getElementsByClassName("tax-info");
+    for (const info of tax_info) {
+      if (info.style.display != "inline") {
+        info.style.display = "inline";
+      } else {
+        info.style.display = "none";
+      }
+    }
+  });
+</script>
