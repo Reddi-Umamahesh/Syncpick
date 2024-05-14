@@ -13,4 +13,5 @@ const storage = new CloudinaryStorage({
     allowedFormats: ["png", "jpg", "jpeg"],
   },
 });
+const a = "app";
 module.exports = { storage, cloudinary };
