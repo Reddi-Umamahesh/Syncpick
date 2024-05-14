@@ -12,7 +12,7 @@
   "author": "Reddi-Umamahesh",
   "license": "ISC",
   "dependencies": {
-    "cloudinary": "^2.2.0",
+    "cloudinary": "^1.41.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.1.0",
     "dotenv": "^16.4.5",
