@@ -1,6 +1,21 @@
 const joi = require("joi");
 const review = require("./models/review");
 
+const categoryOptions = [
+  "general contractor",
+  "plumber",
+  "electrician",
+  "hvac",
+  "carpenter",
+  "painter",
+  "masonry",
+  "solar",
+  "house repairs",
+  "pool & spa",
+  "renovation",
+  "fence",
+  "cement",
+];
 module.exports.listingSchema = joi.object({
   listing: joi
     .object({
@@ -10,6 +25,10 @@ module.exports.listingSchema = joi.object({
       contact: joi.string().required(),
       price: joi.number().required().min(0),
       image: joi.string().allow("", null),
+      category: joi
+        .string()
+        .valid(...categoryOptions)
+        .required(),
     })
     .required(),
 });

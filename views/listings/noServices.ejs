@@ -1,0 +1,32 @@
+<% layout("/layouts/boilerplate") -%> <%- include("../includes/nav2.ejs") %>
+<style>
+  .container {
+    text-align: center;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    width: 100%; /* Ensure image fills its container */
+
+    object-fit: contain; /* Maintain aspect ratio while fitting inside container */
+    margin-bottom: 20px;
+
+    /* Limit maximum height of the image */
+    max-height: 80vh; /* Adjust as needed */
+  }
+  .message {
+    font-size: 18px;
+    color: #555;
+  }
+</style>
+<body>
+  <h2><b><%= queryString %></b></h2>
+  <div class="container">
+    <img
+      src="https://golfwithoutlimits.com/images_home/404_page_not_found_dog.jpg"
+      alt="Image"
+    />
+    <p class="message">Apologies, no services are currently available</p>
+  </div>
+  <img src="dog.jpg" alt="" />
+</body>

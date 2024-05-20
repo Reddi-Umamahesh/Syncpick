@@ -26,6 +26,26 @@ const listingSchema = new Schema({
   contact: {
     type: String,
   },
+  category: {
+    type: String,
+    enum: [
+      "general contractor",
+      "plumber",
+      "electrician",
+      "hvac",
+      "carpenter",
+      "painter",
+      "masonry",
+      "solar",
+      "house repairs",
+      "pool & spa",
+      "renovation",
+      "fence",
+      "cement",
+      "others",
+    ],
+    required: true,
+  },
   reviews: [
     {
       type: Schema.Types.ObjectId,

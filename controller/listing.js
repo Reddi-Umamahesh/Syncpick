@@ -1,9 +1,18 @@
 const listing = require("../models/listing.js");
 module.exports.index = async (req, res, next) => {
   const listings = await listing.find({});
+
   res.render("./listings/index.ejs", { listings });
 };
-
+module.exports.category = async (req, res) => {
+  const queryString = req.query.q;
+  const listings = await listing.find({ category: queryString });
+  if (listings.length == 0) {
+    res.render("./listings/noServices.ejs", { queryString });
+  } else {
+    res.render("./listings/category.ejs", { listings, queryString });
+  }
+};
 module.exports.renderNewForm = (req, res) => {
   res.render("./listings/new.ejs");
 };
@@ -41,15 +50,25 @@ module.exports.showListings = async (req, res, next) => {
 module.exports.renderUpdateForm = async (req, res, next) => {
   const id = req.params.id;
   const post = await listing.findById(id);
+  let originalUrl = post.image.url;
+  originalUrl = originalUrl.replace("/upload", "/upload/h_300,w_250");
+  console.log(originalUrl);
   if (!post) {
     req.flash("error", "Listing you requested for does not exist!");
     res.redirect("/listings");
   }
-  res.render("./listings/edit.ejs", { post });
+  res.render("./listings/edit.ejs", { post, originalUrl });
 };
 module.exports.update = async (req, res, next) => {
   const id = req.params.id;
-  await listing.findByIdAndUpdate(id, { ...req.body.listing });
+
+  let temp = await listing.findByIdAndUpdate(id, { ...req.body.listing });
+  if (typeof req.file !== undefined) {
+    let url = req.file.path;
+    let filename = req.file.filename;
+    temp.image = { url, filename };
+    await temp.save();
+  }
   req.flash("success", "Listing Updated!");
   res.redirect(`/listings/${id}`);
 };

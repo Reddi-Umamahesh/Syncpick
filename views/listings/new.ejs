@@ -36,7 +36,12 @@
         <label for="image" class="form-label"
           >Image <i style="opacity: 0.9" class="fa-solid fa-image"></i
         ></label>
-        <input type="file" name="listing[image]" class="form-control" />
+        <input
+          type="file"
+          name="listing[image]"
+          class="form-control"
+          required
+        />
       </div>
       <div class="row">
         <div class="mb-3 col-md-4">
@@ -79,7 +84,26 @@
         />
         <div class="invalid-feedback">please enter Contact details</div>
       </div>
-
+      <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select" name="listing[category]" required>
+          <option value="" disabled selected>Select a category</option>
+          <option value="general contractor">General Contractor</option>
+          <option value="plumber">Plumber</option>
+          <option value="electrician">Electrician</option>
+          <option value="hvac">HVAC</option>
+          <option value="carpenter">Carpenter</option>
+          <option value="painter">Painter</option>
+          <option value="masonry">Masonry</option>
+          <option value="solar">Solar</option>
+          <option value="house repairs">House Repairs</option>
+          <option value="pool & spa">Pool & Spa</option>
+          <option value="renovation">Renovation</option>
+          <option value="fence">Fence</option>
+          <option value="cement">Cement</option>
+        </select>
+        <div class="invalid-feedback">Please select a category</div>
+      </div>
       <button class="form-btn btn btn-dark">add</button>
     </form>
   </div>

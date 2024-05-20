@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 }
+
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -8,7 +9,7 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
-
+const listing = require("./models/listing.js");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
@@ -68,6 +69,7 @@ async function main() {
   await mongoose.connect(db_url);
 }
 
+main();
 port = 8080;
 app.listen(port, (req, res) => {
   console.log("app is listining");
@@ -78,7 +80,10 @@ app.use((req, res, next) => {
   res.locals.currUser = req.user;
   next();
 });
-
+app.get("/", async (req, res) => {
+  const listings = await listing.find({});
+  res.render("./listings/index.ejs", { listings });
+});
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);

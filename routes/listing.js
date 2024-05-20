@@ -10,7 +10,7 @@ const upload = multer({ storage });
 
 //home
 router.get("/", wrapAsync(listingController.index));
-
+router.get("/cat", wrapAsync(listingController.category));
 //create new
 router
   .route("/new")
@@ -28,6 +28,7 @@ router
   .put(
     isLoggedIn,
     isOwner,
+    upload.single("listing[image]"),
     validateListing,
     wrapAsync(listingController.update)
   )

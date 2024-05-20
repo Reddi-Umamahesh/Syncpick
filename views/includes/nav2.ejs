@@ -1,0 +1,310 @@
+<style>
+  .bar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allow items to wrap */
+  }
+  #filters {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%; /* Ensure it takes full width */
+    position: relative; /* Ensure paddles are positioned correctly */
+  }
+  .filter {
+    text-align: center;
+    margin-right: 2rem;
+    margin-top: 2rem;
+    opacity: 0.7;
+    flex: 0 0 auto;
+  }
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  .filter i {
+    opacity: 0.7;
+  }
+  .filter:hover i {
+    opacity: 1;
+    cursor: pointer;
+  }
+  .menu-wrapper {
+    position: relative;
+    width: 100%; /* Adjusted to 100% of the viewport width */
+    height: 100px;
+    overflow: hidden;
+  }
+  .menu {
+    height: calc(100% + 30px);
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 30px;
+  }
+  .item {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  .paddles {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    box-sizing: border-box;
+    pointer-events: none; /* Ensure paddles do not interfere with hover effects */
+  }
+  .left-paddle,
+  .right-paddle {
+    pointer-events: auto; /* Allow pointer events on paddles themselves */
+  }
+  .paddle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+    padding: 0.5em;
+    pointer-events: auto;
+    z-index: 1; /* Ensure paddles are above other elements */
+  }
+  .hidden {
+    display: none;
+  }
+  .tax-toggle {
+    margin-top: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid black;
+    height: 3.5rem;
+    padding: 1rem;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+  a{
+    text-decoration: none;
+    color: #333;
+  }
+  .filter.active i, .filter.active p {
+  color: #000;
+  opacity: 1; 
+}
+.active{
+    color: black;
+  opacity: 1; 
+}
+.filter i, .filter p {
+  transition: color 0.3s, opacity 0.3s; 
+}
+
+
+  /* Responsive styling */
+  @media (max-width: 768px) {
+    .bar {
+      flex-direction: column; /* Stack items vertically */
+      align-items: flex-start; /* Align items to the start */
+    }
+    .tax-toggle {
+      width: 100%;
+      justify-content: center; /* Center the toggle button */
+      margin-top: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <div id="filters" class="menu-wrapper">
+      <ul class="menu">
+    <li class="item filter">
+        <a href="/listings/cat?q=general contractor">
+            <div>
+                <i class="fa-solid fa-helmet-safety"></i>
+            </div>
+            <p>General Contractor</p>
+        </a>
+    </li>
+    <li class="item filter">
+        <a href="/listings/cat?q=plumber">
+            <div>
+                <i class="fa-solid fa-faucet"></i>
+            </div>
+            <p>Plumber</p>
+        </a>
+    </li>
+    <li class="item filter">
+        <a href="/listings/cat?q=electrician">
+            <div>
+                <i class="fa-solid fa-plug-circle-bolt"></i>
+            </div>
+            <p>Electrician</p>
+        </a>
+    </li>
+    <li class="item filter">
+        <a href="/listings/cat?q=hvac">
+            <div>
+                <i class="fa-solid fa-snowflake"></i>
+            </div>
+            <p>HVAC</p>
+        </a>
+    </li>
+    <li class="item filter">
+        <a href="/listings/cat?q=carpenter">
+            <div>
+                <i class="fa-solid fa-hammer"></i>
+            </div>
+            <p>Carpenter</p>
+        </a>
+    </li>
+    <li class="item filter">
+        <a href="/listings/cat?q=painter">
+            <div>
+                <i class="fa-solid fa-paint-roller"></i>
+            </div>
+            <p>Painter</p>
+        </a>
+    </li>
+    <li class="item filter">
+        <a href="/listings/cat?q=masonry">
+            <div>
+                <i class="fa-solid fa-trowel-bricks"></i>
+            </div>
+            <p>Masonry</p>
+        </a>
+    </li>
+    <li class="item filter">
+        <a href="/listings/cat?q=solar">
+            <div>
+                <i class="fa-solid fa-solar-panel"></i>
+            </div>
+            <p>Solar</p>
+        </a>
+    </li>
+    <li class="item filter">
+        <a href="/listings/cat?q=house repairs">
+            <div>
+                <i class="fa-solid fa-house"></i>
+            </div>
+            <p>House Repairs</p>
+        </a>
+    </li>
+    <li class="item filter">
+        <a href="/listings/cat?q=pool and spa">
+            <div>
+                <i class="fa-solid fa-water-ladder"></i>
+            </div>
+            <p>Pool and spa</p>
+        </a>
+    </li>
+    <li class="item filter">
+        <a href="/listings/cat?q=renovation">
+            <div>
+                <i class="fa-solid fa-circle-up"></i>
+            </div>
+            <p>Renovation</p>
+        </a>
+    </li>
+    <li class="item filter">
+        <a href="/listings/cat?q=fence">
+            <div>
+                <i class="fa-solid fa-road-barrier"></i>
+            </div>
+            <p>Fence</p>
+        </a>
+    </li>
+    <li class="item filter">
+        <a href="/listings/cat?q=cement">
+            <div>
+                <i class="fa-solid fa-building"></i>
+            </div>
+            <p>Cement</p>
+        </a>
+    </li>
+</ul>
+
+      <div class="paddles">
+        <button class="left-paddle paddle">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <button class="right-paddle paddle">
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+    <div class="tax-toggle">
+      <div class="form-check-reverse form-switch">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckDefault"
+        />
+        <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const menu = document.querySelector(".menu");
+    const leftPaddle = document.querySelector(".left-paddle");
+    const rightPaddle = document.querySelector(".right-paddle");
+    const filters = document.querySelectorAll(".filter");
+    const paras = document.querySelectorAll('.filter p');
+    const icons = document.querySelectorAll('.filter i');
+    function updatePaddles() {
+        const scrollLeft = menu.scrollLeft;
+        const scrollWidth = menu.scrollWidth;
+        const clientWidth = menu.clientWidth;
+        const isScrolled = scrollLeft > 0;
+        const isEndOfScroll = scrollLeft + clientWidth >= scrollWidth;
+
+        leftPaddle.classList.toggle("hidden", !isScrolled);
+        rightPaddle.classList.toggle("hidden", isEndOfScroll);
+    }
+
+    leftPaddle.addEventListener("click", function () {
+        menu.scrollBy({
+            left: -200,
+            behavior: "smooth",
+        });
+    });
+
+    rightPaddle.addEventListener("click", function () {
+        menu.scrollBy({
+            left: 200,
+            behavior: "smooth",
+        });
+    });
+
+    menu.addEventListener("scroll", updatePaddles);
+
+    updatePaddles();
+ 
+    
+    let price = document.getElementsByClassName("listing-price");
+
+    let tax_switch = document.getElementById("flexSwitchCheckDefault");
+    tax_switch.addEventListener("click", () => {
+        let tax_info = document.getElementsByClassName("tax-info");
+        for (const info of tax_info) {
+            if (info.style.display != "inline") {
+                info.style.display = "inline";
+            } else {
+                info.style.display = "none";
+            }
+        }
+    });
+});
+  </script>
+</body>
