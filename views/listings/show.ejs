@@ -1,4 +1,8 @@
 <% layout("/layouts/boilerplate") -%>
+<script>
+  const mapToken = "<%= process.env.MAP_TOKEN %>";
+  const post = <%- JSON.stringify(post) %>;
+</script>
 <div class="row m-0">
   <div class="col-8 offset-2 mt-3">
     <h2><%= post.title %></h2>
@@ -7,11 +11,12 @@
     <img
       src="<%= post.image.url%>"
       class="card-img-top card-img-show"
+      style="object-fit: contain !important"
       alt="Image"
     />
     <div class="card-body listing-card-body">
       <p class="card-text">Owned by ~<%= post.owner.username %></p>
-      <p class="card-text"><%= post.owner.category %></p>
+      <p class="card-text"><%= post.category %></p>
       <p class="card-text">
         <%= post.description %> <br />
         <i class="fa-solid fa-tag"></i> &#8377;<%=
@@ -35,7 +40,7 @@
     </form>
   </div>
   <% } %>
-  <div class="col-8 offset-2">
+  <div class="col-8 offset-1">
     <% if (currUser) { %>
     <hr />
     <h4>Leave a Review</h4>
@@ -138,5 +143,10 @@
       </div>
       <% } %>
     </div>
+    <div class="col-8 mb-3">
+      <h3>Where you will find</h3>
+      <div class="map" id="map"></div>
+    </div>
   </div>
 </div>
+<script src="/js/map.js"></script>

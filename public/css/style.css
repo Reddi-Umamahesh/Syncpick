@@ -105,3 +105,27 @@ body{
 .show-card{
     padding: 0;
 }
+/* Default map style for larger screens */
+/* Default map style for larger screens */
+#map {
+    height: 50vh;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Map style for tablets */
+@media (max-width: 768px) {
+    #map {
+        height: 40vh;
+        width: 60vh;
+    }
+}
+
+/* Map style for mobile phones */
+@media (max-width: 480px) {
+    #map {
+        height: 30vh;
+        width: 100%;
+    }
+}
