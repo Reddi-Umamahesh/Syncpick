@@ -28,14 +28,57 @@
       rel="stylesheet"
     />
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
-
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/rating.css" />
   </head>
 
   <body>
     <%- include("../includes/navbar.ejs") %>
+    <!-- views/layouts/boilerplate.ejs -->
+
     <div class="container">
+      <div id="cityExploration" class="container mt-5">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="text-center mb-4">Explore Cities</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="city-box">
+            <img src="/Syncpick/assests/Chennai Central Railway Station.png" alt="City 1" class="city-img">
+            <h3>City 1</h3>
+          </div>
+          <div class="city-box">
+            <img src="/assets/city2.jpg" alt="City 2" class="city-img">
+            <h3>City 2</h3>
+          </div>
+          <div class="city-box">
+            <img src="/assets/city3.jpg" alt="City 3" class="city-img">
+            <h3>City 3</h3>
+          </div>
+          <div class="city-box">
+            <img src="/assets/city4.jpg" alt="City 4" class="city-img">
+            <h3>City 4</h3>
+          </div>
+          <div class="city-box">
+            <img src="/assets/city5.jpg" alt="City 5" class="city-img">
+            <h3>City 5</h3>
+          </div>
+          <div class="city-box">
+            <img src="/assets/city6.jpg" alt="City 6" class="city-img">
+            <h3>City 6</h3>
+          </div>
+          <div class="city-box">
+            <img src="/assets/city7.jpg" alt="City 7" class="city-img">
+            <h3>City 7</h3>
+          </div>
+          <div class="city-box">
+            <img src="/assets/city8.jpg" alt="City 8" class="city-img">
+            <h3>City 8</h3>
+          </div>
+        </div>
+      </div>
+
       <%- include("../includes/flash.ejs") %><%- body %>
     </div>
     <%- include("../includes/footer.ejs") %>
