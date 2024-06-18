@@ -182,8 +182,8 @@ body {
 }
 
 #cityExploration .city-img {
-    width: 40px; /* Adjust width as needed */
-    height: 40px; /* Adjust height as needed */
+    width: 60px; /* Adjust width as needed */
+    height: 60px; /* Adjust height as needed */
     border-radius: 10px;
     margin-bottom: 5px;
 }
